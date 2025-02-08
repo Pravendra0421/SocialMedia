@@ -25,6 +25,11 @@ app.use(cookieParser());
 app.use(urlencoded({extended: true}));
 app.use(cors(corsOptions));
 
+//root
+app.get("/",(req,res)=>{
+    res.send("welocme to the social media");
+});
+
 // api
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/post", postRoute);
