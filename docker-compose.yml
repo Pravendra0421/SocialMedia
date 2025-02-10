@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/social_media
+      - NODE_ENV=production
+      - JWT_SECRET=sgdjdjsbdjsd
+    depends_on:
+      - mongo
+    networks:
+      - social_network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:3000" # Map external port 5173 to internal 3000
+    depends_on:
+      - backend
+    networks:
+      - social_network
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    networks:
+      - social_network
+
+networks:
+  social_network:
+    driver: bridge
